@@ -9,29 +9,35 @@ export const ShexJNameVisitor =
     TripleConstraint: {
       visitor: async (tripleConstraint, context) => {
         if (tripleConstraint.valueExpr) {
+          const isContainer =
+            tripleConstraint.max !== undefined && tripleConstraint.max !== 1;
           if (typeof tripleConstraint.valueExpr === "string") {
             // TOOD handle string value expr
           } else if (tripleConstraint.valueExpr.type === "NodeConstraint") {
             if (tripleConstraint.valueExpr.datatype) {
-              // context.addPredicate(
-              //   tripleConstraint.predicate,
-              //   tripleConstraint.valueExpr.datatype,
-              //   tripleConstraint.annotations
-              // );
-              context.addSubject(
+              context.addPredicate(
                 tripleConstraint.predicate,
+                {
+                  "@type": tripleConstraint.valueExpr.datatype,
+                },
+                isContainer,
                 tripleConstraint.annotations
               );
             } else {
-              context.addSubject(
+              context.addPredicate(
                 tripleConstraint.predicate,
+                {},
+                isContainer,
                 tripleConstraint.annotations
               );
             }
           } else {
             context.addPredicate(
               tripleConstraint.predicate,
-              "@id",
+              {
+                "@type": "@id",
+              },
+              isContainer,
               tripleConstraint.annotations
             );
           }

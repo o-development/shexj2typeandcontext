@@ -1,5 +1,5 @@
 import { Annotation } from "shexj";
-import { ContextDefinition } from "jsonld";
+import { ContextDefinition, ExpandedTermDefinition } from "jsonld";
 
 /**
  * Name functions
@@ -52,7 +52,7 @@ export function toCamelCase(text: string) {
  */
 export class JsonLdContextBuilder {
   private iriAnnotations: Record<string, Annotation[]> = {};
-  private iriTypes: Record<string, string> = {};
+  private iriTypes: Record<string, ExpandedTermDefinition> = {};
 
   addSubject(iri: string, annotations?: Annotation[]) {
     if (!this.iriAnnotations[iri]) {
@@ -63,9 +63,40 @@ export class JsonLdContextBuilder {
     }
   }
 
-  addPredicate(iri: string, type: string, annotations?: Annotation[]) {
+  addPredicate(
+    iri: string,
+    expandedTermDefinition: ExpandedTermDefinition,
+    isContainer: boolean,
+    annotations?: Annotation[]
+  ) {
     this.addSubject(iri, annotations);
-    this.iriTypes[iri] = type;
+    if (!this.iriTypes[iri]) {
+      this.iriTypes[iri] = expandedTermDefinition;
+      if (isContainer) {
+        this.iriTypes[iri]["@container"] = "@set";
+      }
+    } else {
+      const curDef = this.iriTypes[iri];
+      const newDef = expandedTermDefinition;
+      curDef["@container"] = "@set";
+      if (curDef["@type"] && newDef["@type"]) {
+        if (
+          Array.isArray(curDef["@type"]) &&
+          !(curDef["@type"] as string[]).includes(newDef["@type"])
+        ) {
+          curDef["@type"].push(newDef["@type"]);
+        } else if (
+          typeof curDef["@type"] === "string" &&
+          curDef["@type"] !== newDef["@type"]
+        ) {
+          // The typings are incorrect. String arrays are allowed on @type
+          // see https://w3c.github.io/json-ld-syntax/#example-specifying-multiple-types-for-a-node
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          curDef["@type"] = [curDef["@type"], newDef["@type"]];
+        }
+      }
+    }
   }
 
   generateNames(): Record<string, string> {
@@ -117,8 +148,11 @@ export class JsonLdContextBuilder {
     Object.entries(namesMap).forEach(([iri, name]) => {
       if (this.iriTypes[iri]) {
         contextDefnition[name] = {
-          "@id": iri,
-          "@type": this.iriTypes[iri],
+          "@id":
+            iri === "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+              ? "@type"
+              : iri,
+          ...this.iriTypes[iri],
         };
       } else {
         contextDefnition[name] = iri;

@@ -37,6 +37,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
     "jsonld": "^5.2.0",
+    "o-dataset-pack": "^0.2.1",
     "prettier": "^2.5.1",
     "shex-test": "^2.1.0",
     "ts-jest": "^27.1.2",
@@ -50,6 +51,7 @@
   ],
   "dependencies": {
     "dts-dom": "^3.6.0",
+    "jsonld2graphobject": "^0.0.4",
     "shexj-traverser": "^1.0.0"
   }
 }
