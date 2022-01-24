@@ -1,3 +1,4 @@
+import { ContextDefinition } from "jsonld";
 import { Schema } from "shexj";
 
 export interface TestData {
@@ -5,6 +6,8 @@ export interface TestData {
   shexj: Schema;
   sampleTurtle: string;
   baseNode: string;
+  successfulContext: ContextDefinition;
+  successfulTypings: string;
 }
 
 /**
@@ -74,6 +77,26 @@ export const simple: TestData = {
       .
   `,
   baseNode: "http://a.example/Employee7",
+  successfulContext: {
+    givenName: {
+      "@id": "http://xmlns.com/foaf/0.1/givenName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+      "@container": "@set",
+    },
+    familyName: {
+      "@id": "http://xmlns.com/foaf/0.1/familyName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    phone: {
+      "@id": "http://xmlns.com/foaf/0.1/phone",
+      "@container": "@set",
+    },
+    mbox: {
+      "@id": "http://xmlns.com/foaf/0.1/mbox",
+    },
+  },
+  successfulTypings:
+    "declare namespace  {\r\n    interface EmployeeShape {\r\n        givenName: string[];\r\n        familyName: string;\r\n        phone?: string[];\r\n        mbox: string;\r\n    }\r\n\r\n}\r\n\r\n",
 };
 
 /**
@@ -104,7 +127,7 @@ export const circular: TestData = {
             {
               type: "TripleConstraint",
               predicate: "http://example.com/hasChild",
-              valueExpr: "http://example.com/Child",
+              valueExpr: "http://example.com/ChildShape",
             },
           ],
         },
@@ -128,7 +151,7 @@ export const circular: TestData = {
             {
               type: "TripleConstraint",
               predicate: "http://example.com/hasParent",
-              valueExpr: "http://example.com/Parent",
+              valueExpr: "http://example.com/ParentShape",
             },
           ],
         },
@@ -147,6 +170,15 @@ export const circular: TestData = {
       example:hasParent example:SampleParent .
   `,
   baseNode: "http://example.com/SampleParent",
+  successfulContext: {
+    type: { "@id": "@type", "@container": "@set" },
+    Parent: "http://example.com/Parent",
+    hasChild: { "@id": "http://example.com/hasChild", "@type": "@id" },
+    Child: "http://example.com/Child",
+    hasParent: { "@id": "http://example.com/hasParent", "@type": "@id" },
+  },
+  successfulTypings:
+    'declare namespace  {\r\n    interface ParentShape {\r\n        type?: "Parent";\r\n        hasChild: ChildShape;\r\n    }\r\n\r\n    interface ChildShape {\r\n        type?: "Child";\r\n        hasParent: ParentShape;\r\n    }\r\n\r\n}\r\n\r\n',
 };
 
 /**
@@ -1118,6 +1150,147 @@ export const profile: TestData = {
     publ:ab34c8d2 a meeting:LongChat; wf:participant c1:me, c2:me.
   `,
   baseNode: "https://jackson.solidcommunity.net/profile/card#me",
+  successfulContext: {
+    countryName: {
+      "@id": "http://www.w3.org/2006/vcard/ns#country-name",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    locality: {
+      "@id": "http://www.w3.org/2006/vcard/ns#locality",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    postalCode: {
+      "@id": "http://www.w3.org/2006/vcard/ns#postal-code",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    region: {
+      "@id": "http://www.w3.org/2006/vcard/ns#region",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    streetAddress: {
+      "@id": "http://www.w3.org/2006/vcard/ns#street-address",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    type: {
+      "@id": "@type",
+      "@container": "@set",
+    },
+    Dom: "http://www.w3.org/2006/vcard/ns#Dom",
+    Home: "http://www.w3.org/2006/vcard/ns#Home",
+    ISDN: "http://www.w3.org/2006/vcard/ns#ISDN",
+    Internet: "http://www.w3.org/2006/vcard/ns#Internet",
+    Intl: "http://www.w3.org/2006/vcard/ns#Intl",
+    Label: "http://www.w3.org/2006/vcard/ns#Label",
+    Parcel: "http://www.w3.org/2006/vcard/ns#Parcel",
+    Postal: "http://www.w3.org/2006/vcard/ns#Postal",
+    Pref: "http://www.w3.org/2006/vcard/ns#Pref",
+    Work: "http://www.w3.org/2006/vcard/ns#Work",
+    X400: "http://www.w3.org/2006/vcard/ns#X400",
+    value: {
+      "@id": "http://www.w3.org/2006/vcard/ns#value",
+      "@container": "@set",
+    },
+    modulus: {
+      "@id": "http://www.w3.org/ns/auth/cert#modulus",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    exponent: {
+      "@id": "http://www.w3.org/ns/auth/cert#exponent",
+      "@type": "http://www.w3.org/2001/XMLSchema#integer",
+    },
+    Person: "http://schema.org/Person",
+    Person2: "http://xmlns.com/foaf/0.1/Person",
+    fn: {
+      "@id": "http://www.w3.org/2006/vcard/ns#fn",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    name: {
+      "@id": "http://xmlns.com/foaf/0.1/name",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    hasAddress: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasAddress",
+      "@type": "@id",
+      "@container": "@set",
+    },
+    hasEmail: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasEmail",
+      "@type": "@id",
+      "@container": "@set",
+    },
+    hasPhoto: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasPhoto",
+    },
+    img: {
+      "@id": "http://xmlns.com/foaf/0.1/img",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    hasTelephone: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasTelephone",
+      "@type": "@id",
+      "@container": "@set",
+    },
+    phone: {
+      "@id": "http://www.w3.org/2006/vcard/ns#phone",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    organizationName: {
+      "@id": "http://www.w3.org/2006/vcard/ns#organization-name",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    role: {
+      "@id": "http://www.w3.org/2006/vcard/ns#role",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    trustedApp: {
+      "@id": "http://www.w3.org/ns/auth/acl#trustedApp",
+      "@type": "@id",
+      "@container": "@set",
+    },
+    mode: {
+      "@id": "http://www.w3.org/ns/auth/acl#mode",
+      "@container": "@set",
+    },
+    Append: "http://www.w3.org/ns/auth/acl#Append",
+    Control: "http://www.w3.org/ns/auth/acl#Control",
+    Read: "http://www.w3.org/ns/auth/acl#Read",
+    Write: "http://www.w3.org/ns/auth/acl#Write",
+    origin: {
+      "@id": "http://www.w3.org/ns/auth/acl#origin",
+    },
+    key: {
+      "@id": "http://www.w3.org/ns/auth/cert#key",
+      "@type": "@id",
+      "@container": "@set",
+    },
+    inbox: {
+      "@id": "http://www.w3.org/ns/ldp#inbox",
+    },
+    preferencesFile: {
+      "@id": "http://www.w3.org/ns/pim/space#preferencesFile",
+    },
+    storage: {
+      "@id": "http://www.w3.org/ns/pim/space#storage",
+      "@container": "@set",
+    },
+    account: {
+      "@id": "http://www.w3.org/ns/solid/terms#account",
+    },
+    privateTypeIndex: {
+      "@id": "http://www.w3.org/ns/solid/terms#privateTypeIndex",
+      "@container": "@set",
+    },
+    publicTypeIndex: {
+      "@id": "http://www.w3.org/ns/solid/terms#publicTypeIndex",
+      "@container": "@set",
+    },
+    knows: {
+      "@id": "http://xmlns.com/foaf/0.1/knows",
+      "@container": "@set",
+    },
+  },
+  successfulTypings:
+    'declare namespace  {\r\n    interface AddressShape {\r\n        /**\r\n         * The name of the user\'s country of residence\r\n         */\r\n        countryName?: string;\r\n        /**\r\n         * The name of the user\'s locality (City, Town etc.) of residence\r\n         */\r\n        locality?: string;\r\n        /**\r\n         * The user\'s postal code\r\n         */\r\n        postalCode?: string;\r\n        /**\r\n         * The name of the user\'s region (State, Province etc.) of residence\r\n         */\r\n        region?: string;\r\n        /**\r\n         * The user\'s street address\r\n         */\r\n        streetAddress?: string;\r\n    }\r\n\r\n    interface EmailShape {\r\n        /**\r\n         * The type of email.\r\n         */\r\n        type?: "Dom" | "Home" | "ISDN" | "Internet" | "Intl" | "Label" | "Parcel" | "Postal" | "Pref" | "Work" | "X400";\r\n        /**\r\n         * The value of an email as a mailto link (Example <mailto:jane@example.com>)\r\n         */\r\n        value: string;\r\n    }\r\n\r\n    interface PhoneNumberShape {\r\n        /**\r\n         * They type of Phone Number\r\n         */\r\n        type?: "Dom" | "Home" | "ISDN" | "Internet" | "Intl" | "Label" | "Parcel" | "Postal" | "Pref" | "Work" | "X400";\r\n        /**\r\n         * The value of a phone number as a tel link (Example <tel:555-555-5555>)\r\n         */\r\n        value: string;\r\n    }\r\n\r\n    interface RSAPublicKeyShape {\r\n        /**\r\n         * RSA Modulus\r\n         */\r\n        modulus: string;\r\n        /**\r\n         * RSA Exponent\r\n         */\r\n        exponent: number;\r\n    }\r\n\r\n    interface SolidProfileShape {\r\n        /**\r\n         * Defines the node as a Person (from Schema.org) | Defines the node as a Person (from foaf)\r\n         */\r\n        type: ("Person" | "Person2")[];\r\n        /**\r\n         * The formatted name of a person. Example: John Smith\r\n         */\r\n        fn?: string;\r\n        /**\r\n         * An alternate way to define a person\'s name.\r\n         */\r\n        name?: string;\r\n        /**\r\n         * The person\'s street address.\r\n         */\r\n        hasAddress?: (AddressShape)[];\r\n        /**\r\n         * The person\'s email.\r\n         */\r\n        hasEmail?: (EmailShape)[];\r\n        /**\r\n         * A link to the person\'s photo\r\n         */\r\n        hasPhoto?: string;\r\n        /**\r\n         * Photo link but in string form\r\n         */\r\n        img?: string;\r\n        /**\r\n         * Person\'s telephone number\r\n         */\r\n        hasTelephone?: (PhoneNumberShape)[];\r\n        /**\r\n         * An alternative way to define a person\'s telephone number using a string\r\n         */\r\n        phone?: string;\r\n        /**\r\n         * The name of the organization with which the person is affiliated\r\n         */\r\n        organizationName?: string;\r\n        /**\r\n         * The name of the person\'s role in their organization\r\n         */\r\n        role?: string;\r\n        /**\r\n         * A list of app origins that are trusted by this user\r\n         */\r\n        trustedApp?: (TrustedAppShape)[];\r\n        /**\r\n         * A list of RSA public keys that are associated with private keys the user holds.\r\n         */\r\n        key?: (RSAPublicKeyShape)[];\r\n        /**\r\n         * The user\'s LDP inbox to which apps can post notifications\r\n         */\r\n        inbox: string;\r\n        /**\r\n         * The user\'s preferences\r\n         */\r\n        preferencesFile?: string;\r\n        /**\r\n         * The location of a Solid storage server related to this WebId\r\n         */\r\n        storage?: string[];\r\n        /**\r\n         * The user\'s account\r\n         */\r\n        account?: string;\r\n        /**\r\n         * A registry of all types used on the user\'s Pod (for private access only)\r\n         */\r\n        privateTypeIndex?: string[];\r\n        /**\r\n         * A registry of all types used on the user\'s Pod (for public access)\r\n         */\r\n        publicTypeIndex?: string[];\r\n        /**\r\n         * A list of WebIds for all the people this user knows.\r\n         */\r\n        knows?: string[];\r\n    }\r\n\r\n    interface TrustedAppShape {\r\n        /**\r\n         * The level of access provided to this origin\r\n         */\r\n        mode: ("Append" | "Control" | "Read" | "Write")[];\r\n        /**\r\n         * The app origin the user trusts\r\n         */\r\n        origin: string;\r\n    }\r\n\r\n}\r\n\r\n',
 };
 
 export const testData: TestData[] = [simple, circular, profile];

@@ -1,10 +1,10 @@
-import ShexJTraverser from "./shexJTraverser";
+import ShexJTraverser from "shexj-traverser";
 import * as dom from "dts-dom";
-import { nameFromObject } from "./createIriNames";
 import { Annotation } from "shexj";
+import { nameFromObject } from "../context/JsonLdContextBuilder";
 
 export interface ShexJTypeTransformerContext {
-  iriNameMap: Record<string, string>;
+  getNameFromIri: (iri: string) => string;
 }
 
 export function commentFromAnnotations(
@@ -22,7 +22,7 @@ export function commentFromAnnotations(
   }
 }
 
-export const ShexJTypeTransformer = ShexJTraverser.createTransformer<
+export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
   {
     Schema: {
       return: dom.NamespaceDeclaration;
@@ -175,7 +175,7 @@ export const ShexJTypeTransformer = ShexJTraverser.createTransformer<
       context
     ) => {
       const transformedChildren = await getTransformedChildren();
-      const propertyName = context.iriNameMap[tripleConstraint.predicate];
+      const propertyName = context.getNameFromIri(tripleConstraint.predicate);
       const isArray =
         tripleConstraint.max !== undefined && tripleConstraint.max !== 1;
       const isOptional = tripleConstraint.min === 0;
@@ -189,6 +189,7 @@ export const ShexJTypeTransformer = ShexJTraverser.createTransformer<
         isArray ? dom.type.array(type) : type,
         isOptional ? dom.DeclarationFlags.Optional : dom.DeclarationFlags.None
       );
+
       propertyDeclaration.jsDocComment = commentFromAnnotations(
         tripleConstraint.annotations
       );
@@ -262,7 +263,7 @@ export const ShexJTypeTransformer = ShexJTraverser.createTransformer<
         nodeConstraint.values.forEach((value) => {
           if (typeof value === "string") {
             valuesUnion.members.push(
-              dom.type.stringLiteral(context.iriNameMap[value])
+              dom.type.stringLiteral(context.getNameFromIri(value))
             );
           }
         });

@@ -1,3 +1,5 @@
+shexj2typeandcontext / [Exports](modules.md)
+
 # ShexJ 2 Type and Context
 
 Turn ShexJ into typescript typings and JSON-LD context.
@@ -114,7 +116,6 @@ async function run() {
 }
 run();
 ```
-
 
 ## Liscense
 MIT

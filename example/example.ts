@@ -1,20 +1,5 @@
-# ShexJ 2 Type and Context
-
-Turn ShexJ into typescript typings and JSON-LD context.
-
-## Installation
-```bash
-npm i shexj2typeandcontext
-```
-
-## API
-See the [full API docs](docs/modules.md).
-
-## Usage
-
-```typescript
 import { Schema } from "shexj";
-import shexjToTypeAndContext from "shexj2typeandcontext";
+import shexjToTypeAndContext from "../lib";
 
 async function run() {
   /**
@@ -113,8 +98,3 @@ async function run() {
   console.log(context);
 }
 run();
-```
-
-
-## Liscense
-MIT

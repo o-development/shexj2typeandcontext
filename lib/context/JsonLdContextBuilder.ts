@@ -53,6 +53,7 @@ export function toCamelCase(text: string) {
 export class JsonLdContextBuilder {
   private iriAnnotations: Record<string, Annotation[]> = {};
   private iriTypes: Record<string, ExpandedTermDefinition> = {};
+  private generatedNames: Record<string, string> | undefined;
 
   addSubject(iri: string, annotations?: Annotation[]) {
     if (!this.iriAnnotations[iri]) {
@@ -140,6 +141,17 @@ export class JsonLdContextBuilder {
       generatedNames[iri] = potentialName;
     });
     return generatedNames;
+  }
+
+  getNameFromIri(iri: string) {
+    if (!this.generatedNames) {
+      this.generatedNames = this.generateNames();
+    }
+    if (this.generatedNames[iri]) {
+      return this.generatedNames[iri];
+    } else {
+      return iri;
+    }
   }
 
   generateJsonldContext(): ContextDefinition {

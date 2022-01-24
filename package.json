@@ -1,6 +1,6 @@
 {
-  "name": "shexj-traverser",
-  "version": "0.3.0",
+  "name": "shexj2typeandcontext",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -8,13 +8,7 @@
     "test": "jest --coverage",
     "docs": "typedoc",
     "prepublishOnly": "npm run test && npm run build && npm run docs",
-    "start": "ts-node ./lib/ShexJToType",
-    "start:string": "ts-node ./lib/ShexJToString",
-    "start:simpleCircle": "ts-node ./lib/SimpleCircle",
-    "start:simpleConverge": "ts-node --stack_ize=3600 ./lib/SimpleConverge",
-    "start:test": "ts-node ./lib/test",
-    "start:name": "ts-node ./lib/ShexJNameVisitor",
-    "start:context": "ts-node ./lib/ShexJToContext"
+    "start": "ts-node ./example/example.ts"
   },
   "repository": {
     "type": "git",
