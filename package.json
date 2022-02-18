@@ -1,6 +1,6 @@
 {
   "name": "shexj2typeandcontext",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
   ],
   "dependencies": {
     "dts-dom": "^3.6.0",
-    "jsonld2graphobject": "^0.0.4",
-    "shexj-traverser": "^1.0.0"
+    "jsonld2graphobject": "^0.0.5",
+    "shexj-traverser": "^1.0.2"
   }
 }
