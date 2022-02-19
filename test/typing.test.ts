@@ -1,7 +1,7 @@
-import { testData } from "./testData";
+import { testData } from "./testData/testData";
 import { shexjToTyping } from "../lib/typing/shexjToTyping";
 
-describe("context", () => {
+describe("typing", () => {
   testData.forEach(({ name, shexj, successfulTypings }) => {
     it(`Creates a typings for ${name}`, async () => {
       const [typings] = await shexjToTyping(shexj);

@@ -10,12 +10,16 @@ export async function shexjToTyping(
   shexj: Schema
 ): Promise<[string, ContextDefinition]> {
   const processedShexj: Schema = (await jsonld2graphobject(
-    { ...shexj, "@id": "SCHEMA" },
+    {
+      ...shexj,
+      "@id": "SCHEMA",
+      "@context": "http://www.w3.org/ns/shex.jsonld",
+    },
     "SCHEMA"
   )) as unknown as Schema;
   const jsonLdContextBuilder = new JsonLdContextBuilder();
   await ShexJNameVisitor.visit(processedShexj, "Schema", jsonLdContextBuilder);
-  const namespace = await ShexJTypingTransformer.transform(
+  const declarations = await ShexJTypingTransformer.transform(
     processedShexj,
     "Schema",
     {
@@ -23,5 +27,18 @@ export async function shexjToTyping(
         jsonLdContextBuilder.getNameFromIri.bind(jsonLdContextBuilder),
     }
   );
-  return [dom.emit(namespace), jsonLdContextBuilder.generateJsonldContext()];
+  const typings =
+    `import {ContextDefinition} from "jsonld"\n\n` +
+    declarations
+      .map(
+        (declaration) =>
+          `export ${dom
+            .emit(declaration, {
+              rootFlags: dom.ContextFlags.InAmbientNamespace,
+            })
+            .replace("\r\n", "\n")}`
+      )
+      .join("");
+
+  return [typings, jsonLdContextBuilder.generateJsonldContext()];
 }

@@ -25,7 +25,7 @@ export function commentFromAnnotations(
 export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
   {
     Schema: {
-      return: dom.NamespaceDeclaration;
+      return: dom.TopLevelDeclaration[];
     };
     Shape: {
       return: dom.InterfaceDeclaration;
@@ -46,18 +46,18 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
     transformer: async (
       _schema,
       getTransformedChildren
-    ): Promise<dom.NamespaceDeclaration> => {
+    ): Promise<dom.TopLevelDeclaration[]> => {
       const transformedChildren = await getTransformedChildren();
-      const namespace = dom.create.namespace("");
+      const interfaces: dom.TopLevelDeclaration[] = [];
       transformedChildren.shapes?.forEach((shape) => {
         if (
           typeof shape !== "string" &&
           (shape as dom.InterfaceDeclaration).kind === "interface"
         ) {
-          namespace.members.push(shape as dom.InterfaceDeclaration);
+          interfaces.push(shape as dom.InterfaceDeclaration);
         }
       });
-      return namespace;
+      return interfaces;
     },
   },
   Shape: {
@@ -66,6 +66,21 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
       const newInterface = dom.create.interface(shapeName);
       setReturnPointer(newInterface);
       const transformedChildren = await getTransformedChildren();
+      // Add @id and @context
+      newInterface.members.push(
+        dom.create.property(
+          "@id",
+          dom.type.string,
+          dom.DeclarationFlags.Optional
+        )
+      );
+      newInterface.members.push(
+        dom.create.property(
+          "@context",
+          dom.create.namedTypeReference("ContextDefinition"),
+          dom.DeclarationFlags.Optional
+        )
+      );
       if (typeof transformedChildren.expression === "string") {
         // TODO: handle string
       } else if (

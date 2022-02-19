@@ -1,4 +1,4 @@
-import { testData } from "./testData";
+import { testData } from "./testData/testData";
 import { shexjToContext } from "../lib/context/shexjToContext";
 
 describe("context", () => {
