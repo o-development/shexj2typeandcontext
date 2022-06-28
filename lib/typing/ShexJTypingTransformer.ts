@@ -2,6 +2,7 @@ import ShexJTraverser from "shexj-traverser";
 import * as dom from "dts-dom";
 import { Annotation } from "shexj";
 import { nameFromObject } from "../context/JsonLdContextBuilder";
+import { ShapeInterfaceDeclaration } from "./ShapeInterfaceDeclaration";
 
 export interface ShexJTypeTransformerContext {
   getNameFromIri: (iri: string) => string;
@@ -63,7 +64,10 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
   Shape: {
     transformer: async (shape, getTransformedChildren, setReturnPointer) => {
       const shapeName = nameFromObject(shape) || "Shape";
-      const newInterface = dom.create.interface(shapeName);
+      const newInterface: ShapeInterfaceDeclaration = {
+        ...dom.create.interface(shapeName),
+        shapeId: shape.id,
+      };
       setReturnPointer(newInterface);
       const transformedChildren = await getTransformedChildren();
       // Add @id and @context
