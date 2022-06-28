@@ -6,9 +6,17 @@ import { jsonld2graphobject } from "jsonld2graphobject";
 import { ShexJTypingTransformer } from "./ShexJTypingTransformer";
 import * as dom from "dts-dom";
 
+export interface TypeingReturn {
+  typingsString: string;
+  typings: {
+    typingString: string;
+    dts: dom.TopLevelDeclaration;
+  }[];
+}
+
 export async function shexjToTyping(
   shexj: Schema
-): Promise<[string, ContextDefinition]> {
+): Promise<[TypeingReturn, ContextDefinition]> {
   const processedShexj: Schema = (await jsonld2graphobject(
     {
       ...shexj,
@@ -28,18 +36,24 @@ export async function shexjToTyping(
         jsonLdContextBuilder.getNameFromIri.bind(jsonLdContextBuilder),
     }
   );
-  const typings =
+  const typings = declarations.map((declaration) => {
+    return {
+      typingString: dom
+        .emit(declaration, {
+          rootFlags: dom.ContextFlags.InAmbientNamespace,
+        })
+        .replace("\r\n", "\n"),
+      dts: declaration,
+    };
+  });
+  const typingsString =
     `import {ContextDefinition} from "jsonld"\n\n` +
-    declarations
-      .map(
-        (declaration) =>
-          `export ${dom
-            .emit(declaration, {
-              rootFlags: dom.ContextFlags.InAmbientNamespace,
-            })
-            .replace("\r\n", "\n")}`
-      )
-      .join("");
+    typings.map((typing) => `export ${typing.typingString}`).join("");
 
-  return [typings, jsonLdContextBuilder.generateJsonldContext()];
+  const typeingReturn: TypeingReturn = {
+    typingsString,
+    typings,
+  };
+
+  return [typeingReturn, jsonLdContextBuilder.generateJsonldContext()];
 }
