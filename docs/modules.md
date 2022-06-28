@@ -12,7 +12,7 @@
 
 ### default
 
-▸ **default**(`shexj`): `Promise`<[`string`, `ContextDefinition`]\>
+▸ **default**(`shexj`): `Promise`<[`TypeingReturn`, `ContextDefinition`]\>
 
 #### Parameters
 
@@ -22,8 +22,8 @@
 
 #### Returns
 
-`Promise`<[`string`, `ContextDefinition`]\>
+`Promise`<[`TypeingReturn`, `ContextDefinition`]\>
 
 #### Defined in
 
-[typing/shexjToTyping.ts:9](https://github.com/o-development/shexj2typeandcontext/blob/df506a2/lib/typing/shexjToTyping.ts#L9)
+[typing/shexjToTyping.ts:17](https://github.com/o-development/shexj2typeandcontext/blob/6038886/lib/typing/shexjToTyping.ts#L17)

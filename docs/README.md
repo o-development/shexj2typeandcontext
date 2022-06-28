@@ -95,7 +95,7 @@ async function run() {
 
   }
   */
-  console.log(typings);
+  console.log(typings.typingsString);
   /*
   Logs:
   {
