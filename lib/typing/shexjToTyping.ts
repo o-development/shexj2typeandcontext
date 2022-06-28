@@ -19,6 +19,7 @@ export async function shexjToTyping(
   )) as unknown as Schema;
   const jsonLdContextBuilder = new JsonLdContextBuilder();
   await ShexJNameVisitor.visit(processedShexj, "Schema", jsonLdContextBuilder);
+
   const declarations = await ShexJTypingTransformer.transform(
     processedShexj,
     "Schema",

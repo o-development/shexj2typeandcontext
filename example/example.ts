@@ -1,5 +1,6 @@
 import { Schema } from "shexj";
 import shexjToTypeAndContext from "../lib";
+import { profile } from "../test/testData/profile";
 
 async function run() {
   /**
@@ -12,57 +13,59 @@ async function run() {
    *   foaf:mbox       IRI            # one FOAF mbox.
    * }
    */
-  const sampleShexj: Schema = {
-    type: "Schema",
-    shapes: [
-      {
-        type: "Shape",
-        id: "http://shex.io/webapps/shex.js/doc/EmployeeShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/givenName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 1,
-              max: -1,
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/familyName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/phone",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: -1,
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/mbox",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-            },
-          ],
-        },
-      },
-    ],
-    "@context": "http://www.w3.org/ns/shex.jsonld",
-  };
+
+  const sampleShexj: Schema = profile.shexj;
+  // const sampleShexj: Schema = {
+  //   type: "Schema",
+  //   shapes: [
+  //     {
+  //       type: "Shape",
+  //       id: "http://shex.io/webapps/shex.js/doc/EmployeeShape",
+  //       expression: {
+  //         type: "EachOf",
+  //         expressions: [
+  //           {
+  //             type: "TripleConstraint",
+  //             predicate: "http://xmlns.com/foaf/0.1/givenName",
+  //             valueExpr: {
+  //               type: "NodeConstraint",
+  //               datatype: "http://www.w3.org/2001/XMLSchema#string",
+  //             },
+  //             min: 1,
+  //             max: -1,
+  //           },
+  //           {
+  //             type: "TripleConstraint",
+  //             predicate: "http://xmlns.com/foaf/0.1/familyName",
+  //             valueExpr: {
+  //               type: "NodeConstraint",
+  //               datatype: "http://www.w3.org/2001/XMLSchema#string",
+  //             },
+  //           },
+  //           {
+  //             type: "TripleConstraint",
+  //             predicate: "http://xmlns.com/foaf/0.1/phone",
+  //             valueExpr: {
+  //               type: "NodeConstraint",
+  //               nodeKind: "iri",
+  //             },
+  //             min: 0,
+  //             max: -1,
+  //           },
+  //           {
+  //             type: "TripleConstraint",
+  //             predicate: "http://xmlns.com/foaf/0.1/mbox",
+  //             valueExpr: {
+  //               type: "NodeConstraint",
+  //               nodeKind: "iri",
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   ],
+  //   "@context": "http://www.w3.org/ns/shex.jsonld",
+  // };
 
   const [typings, context] = await shexjToTypeAndContext(sampleShexj);
 
