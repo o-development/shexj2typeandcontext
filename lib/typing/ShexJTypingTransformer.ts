@@ -275,7 +275,25 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
         }
       }
       if (nodeConstraint.nodeKind) {
-        return dom.type.string;
+        switch (nodeConstraint.nodeKind) {
+          case "iri":
+            return dom.create.objectType([
+              dom.create.property("@id", dom.type.string),
+            ]);
+          case "bnode":
+            return dom.create.objectType([]);
+          case "nonliteral":
+            return dom.create.objectType([
+              dom.create.property(
+                "@id",
+                dom.type.string,
+                dom.DeclarationFlags.Optional
+              ),
+            ]);
+          case "literal":
+          default:
+            return dom.type.string;
+        }
       }
       if (nodeConstraint.values) {
         const valuesUnion = dom.create.union([]);

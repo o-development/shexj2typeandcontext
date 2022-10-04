@@ -86,5 +86,5 @@ export const simple: TestData = {
     },
   },
   successfulTypings:
-    'import {ContextDefinition} from "jsonld"\n\nexport interface EmployeeShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    givenName: string[];\r\n    familyName: string;\r\n    phone?: string[];\r\n    mbox: string;\r\n}\r\n\r\n',
+    'import {ContextDefinition} from "jsonld"\n\nexport interface EmployeeShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    givenName: string[];\r\n    familyName: string;\r\n    phone?: {\r\n        "@id": string;\r\n    }[];\r\n    mbox: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\n',
 };

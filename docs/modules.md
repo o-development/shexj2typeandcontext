@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[typing/shexjToTyping.ts:17](https://github.com/o-development/shexj2typeandcontext/blob/0c47f89/lib/typing/shexjToTyping.ts#L17)
+[typing/shexjToTyping.ts:17](https://github.com/o-development/shexj2typeandcontext/blob/b58ed01/lib/typing/shexjToTyping.ts#L17)
