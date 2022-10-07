@@ -79,5 +79,5 @@ export const circular: TestData = {
     hasParent: { "@id": "http://example.com/hasParent", "@type": "@id" },
   },
   successfulTypings:
-    'import {ContextDefinition} from "jsonld"\n\nexport interface ParentShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: "Parent";\r\n    hasChild: ChildShape;\r\n}\r\n\r\nexport interface ChildShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: "Child";\r\n    hasParent: ParentShape;\r\n}\r\n\r\n',
+    'import {ContextDefinition} from "jsonld"\n\nexport interface ParentShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: {\r\n        "@id": "Parent";\r\n    };\r\n    hasChild: ChildShape;\r\n}\r\n\r\nexport interface ChildShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: {\r\n        "@id": "Child";\r\n    };\r\n    hasParent: ParentShape;\r\n}\r\n\r\n',
 };

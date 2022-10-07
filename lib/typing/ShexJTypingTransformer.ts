@@ -300,7 +300,12 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
         nodeConstraint.values.forEach((value) => {
           if (typeof value === "string") {
             valuesUnion.members.push(
-              dom.type.stringLiteral(context.getNameFromIri(value))
+              dom.create.objectType([
+                dom.create.property(
+                  "@id",
+                  dom.type.stringLiteral(context.getNameFromIri(value))
+                ),
+              ])
             );
           }
         });
