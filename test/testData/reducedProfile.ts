@@ -5,151 +5,49 @@ import { TestData } from "./testData";
  */
 export const reducedProfile: TestData = {
   name: "reduced profile",
-  shexj: {
-    type: "Schema",
-    shapes: [
-      {
-        id: "https://shaperepo.com/schemas/solidProfile#SolidProfileShape",
-        type: "Shape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: ["http://schema.org/Person"],
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Defines the node as a Person",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: ["http://xmlns.com/foaf/0.1/Person"],
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Defines the node as a Person",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#hasEmail",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#EmailShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The person's email.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/name",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "An alternate way to define a person's name",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        extra: ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
-      },
-      {
-        id: "https://shaperepo.com/schemas/solidProfile#EmailShape",
-        type: "Shape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  "http://www.w3.org/2006/vcard/ns#Dom",
-                  "http://www.w3.org/2006/vcard/ns#Home",
-                  "http://www.w3.org/2006/vcard/ns#ISDN",
-                  "http://www.w3.org/2006/vcard/ns#Internet",
-                  "http://www.w3.org/2006/vcard/ns#Intl",
-                  "http://www.w3.org/2006/vcard/ns#Label",
-                  "http://www.w3.org/2006/vcard/ns#Parcel",
-                  "http://www.w3.org/2006/vcard/ns#Postal",
-                  "http://www.w3.org/2006/vcard/ns#Pref",
-                  "http://www.w3.org/2006/vcard/ns#Work",
-                  "http://www.w3.org/2006/vcard/ns#X400",
-                ],
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The type of email.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#value",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The value of an email as a mailto link (Example <mailto:jane@example.com>)",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        extra: ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
-      },
-    ],
-    "@context": "http://www.w3.org/ns/shex.jsonld",
-  },
+  shexc: `
+PREFIX srs: <https://shaperepo.com/schemas/solidProfile#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schem: <http://schema.org/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX acl: <http://www.w3.org/ns/auth/acl#>
+PREFIX cert:  <http://www.w3.org/ns/auth/cert#>
+PREFIX ldp: <http://www.w3.org/ns/ldp#>
+PREFIX sp: <http://www.w3.org/ns/pim/space#>
+PREFIX solid: <http://www.w3.org/ns/solid/terms#>
+
+srs:SolidProfileShape EXTRA a {
+  a [ schem:Person ]
+    // rdfs:comment  "Defines the node as a Person" ;
+  a [ foaf:Person ]
+    // rdfs:comment  "Defines the node as a Person" ;
+  vcard:hasEmail @srs:EmailShape *
+    // rdfs:comment  "The person's email." ;
+  foaf:name xsd:string ?
+    // rdfs:comment  "An alternate way to define a person's name" ;
+}
+
+srs:EmailShape EXTRA a {
+  a [
+    vcard:Dom
+    vcard:Home
+    vcard:ISDN
+    vcard:Internet
+    vcard:Intl
+    vcard:Label
+    vcard:Parcel
+    vcard:Postal
+    vcard:Pref
+    vcard:Work
+    vcard:X400
+  ] ?
+    // rdfs:comment  "The type of email." ;
+  vcard:value IRI
+    // rdfs:comment  "The value of an email as a mailto link (Example <mailto:jane@example.com>)" ;
+}
+  `,
   sampleTurtle: ``,
   baseNode: "",
   successfulContext: {
@@ -172,7 +70,7 @@ export const reducedProfile: TestData = {
     Pref: "http://www.w3.org/2006/vcard/ns#Pref",
     Work: "http://www.w3.org/2006/vcard/ns#Work",
     X400: "http://www.w3.org/2006/vcard/ns#X400",
-    value: { "@id": "http://www.w3.org/2006/vcard/ns#value" },
+    value: { "@id": "http://www.w3.org/2006/vcard/ns#value", "@type": "@id" },
     name: {
       "@id": "http://xmlns.com/foaf/0.1/name",
       "@type": "http://www.w3.org/2001/XMLSchema#string",

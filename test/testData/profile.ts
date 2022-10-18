@@ -5,731 +5,129 @@ import { TestData } from "./testData";
  */
 export const profile: TestData = {
   name: "profile",
-  shexj: {
-    type: "Schema",
-    shapes: [
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#AddressShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#country-name",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The name of the user's country of residence",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#locality",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The name of the user's locality (City, Town etc.) of residence",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#postal-code",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The user's postal code",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#region",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The name of the user's region (State, Province etc.) of residence",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#street-address",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The user's street address",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#EmailShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  "http://www.w3.org/2006/vcard/ns#Dom",
-                  "http://www.w3.org/2006/vcard/ns#Home",
-                  "http://www.w3.org/2006/vcard/ns#ISDN",
-                  "http://www.w3.org/2006/vcard/ns#Internet",
-                  "http://www.w3.org/2006/vcard/ns#Intl",
-                  "http://www.w3.org/2006/vcard/ns#Label",
-                  "http://www.w3.org/2006/vcard/ns#Parcel",
-                  "http://www.w3.org/2006/vcard/ns#Postal",
-                  "http://www.w3.org/2006/vcard/ns#Pref",
-                  "http://www.w3.org/2006/vcard/ns#Work",
-                  "http://www.w3.org/2006/vcard/ns#X400",
-                ],
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The type of email.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#value",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The value of an email as a mailto link (Example <mailto:jane@example.com>)",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        extra: ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
-      },
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#PhoneNumberShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  "http://www.w3.org/2006/vcard/ns#Dom",
-                  "http://www.w3.org/2006/vcard/ns#Home",
-                  "http://www.w3.org/2006/vcard/ns#ISDN",
-                  "http://www.w3.org/2006/vcard/ns#Internet",
-                  "http://www.w3.org/2006/vcard/ns#Intl",
-                  "http://www.w3.org/2006/vcard/ns#Label",
-                  "http://www.w3.org/2006/vcard/ns#Parcel",
-                  "http://www.w3.org/2006/vcard/ns#Postal",
-                  "http://www.w3.org/2006/vcard/ns#Pref",
-                  "http://www.w3.org/2006/vcard/ns#Work",
-                  "http://www.w3.org/2006/vcard/ns#X400",
-                ],
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "They type of Phone Number",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#value",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The value of a phone number as a tel link (Example <tel:555-555-5555>)",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        extra: ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
-      },
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#RSAPublicKeyShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/cert#modulus",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "RSA Modulus",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/cert#exponent",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#integer",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "RSA Exponent",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#SolidProfileShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: ["http://schema.org/Person"],
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Defines the node as a Person (from Schema.org)",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: ["http://xmlns.com/foaf/0.1/Person"],
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Defines the node as a Person (from foaf)",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#fn",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The formatted name of a person. Example: John Smith",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/name",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "An alternate way to define a person's name.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#hasAddress",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#AddressShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The person's street address.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#hasEmail",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#EmailShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The person's email.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#hasPhoto",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "A link to the person's photo",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/img",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Photo link but in string form",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#hasTelephone",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#PhoneNumberShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "Person's telephone number",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#phone",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "An alternative way to define a person's telephone number using a string",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#organization-name",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The name of the organization with which the person is affiliated",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/2006/vcard/ns#role",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The name of the person's role in their organization",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/acl#trustedApp",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#TrustedAppShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "A list of app origins that are trusted by this user",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/cert#key",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#RSAPublicKeyShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "A list of RSA public keys that are associated with private keys the user holds.",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/ldp#inbox",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The user's LDP inbox to which apps can post notifications",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/pim/space#preferencesFile",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The user's preferences",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/pim/space#storage",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "The location of a Solid storage server related to this WebId",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/solid/terms#account",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: 1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The user's account",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/solid/terms#privateTypeIndex",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "A registry of all types used on the user's Pod (for private access only)",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/solid/terms#publicTypeIndex",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "A registry of all types used on the user's Pod (for public access)",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/knows",
-              valueExpr:
-                "https://shaperepo.com/schemas/solidProfile#SolidProfileShape",
-              min: 0,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value:
-                      "A list of WebIds for all the people this user knows.",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        extra: ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
-      },
-      {
-        type: "Shape",
-        id: "https://shaperepo.com/schemas/solidProfile#TrustedAppShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/acl#mode",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  "http://www.w3.org/ns/auth/acl#Append",
-                  "http://www.w3.org/ns/auth/acl#Control",
-                  "http://www.w3.org/ns/auth/acl#Read",
-                  "http://www.w3.org/ns/auth/acl#Write",
-                ],
-              },
-              min: 1,
-              max: -1,
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The level of access provided to this origin",
-                  },
-                },
-              ],
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/ns/auth/acl#origin",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schema#comment",
-                  object: {
-                    value: "The app origin the user trusts",
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-    ],
-    "@context": "http://www.w3.org/ns/shex.jsonld",
-  },
+  shexc: `
+PREFIX srs: <https://shaperepo.com/schemas/solidProfile#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schem: <http://schema.org/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX acl: <http://www.w3.org/ns/auth/acl#>
+PREFIX cert:  <http://www.w3.org/ns/auth/cert#>
+PREFIX ldp: <http://www.w3.org/ns/ldp#>
+PREFIX sp: <http://www.w3.org/ns/pim/space#>
+PREFIX solid: <http://www.w3.org/ns/solid/terms#>
+
+srs:SolidProfileShape EXTRA a {
+  a [ schem:Person ]
+    // rdfs:comment  "Defines the node as a Person (from Schema.org)" ;
+  a [ foaf:Person ]
+    // rdfs:comment  "Defines the node as a Person (from foaf)" ;
+  vcard:fn xsd:string ?
+    // rdfs:comment  "The formatted name of a person. Example: John Smith" ;
+  foaf:name xsd:string ?
+    // rdfs:comment  "An alternate way to define a person's name." ;
+  vcard:hasAddress @srs:AddressShape *
+    // rdfs:comment  "The person's street address." ;
+  vcard:hasEmail @srs:EmailShape *
+    // rdfs:comment  "The person's email." ;
+  vcard:hasPhoto IRI ?
+    // rdfs:comment  "A link to the person's photo" ;
+  foaf:img xsd:string ?
+    // rdfs:comment  "Photo link but in string form" ;
+  vcard:hasTelephone @srs:PhoneNumberShape *
+    // rdfs:comment  "Person's telephone number" ;
+  vcard:phone xsd:string ?
+    // rdfs:comment  "An alternative way to define a person's telephone number using a string" ;
+  vcard:organization-name xsd:string ?
+    // rdfs:comment  "The name of the organization with which the person is affiliated" ;
+  vcard:role xsd:string ?
+    // rdfs:comment  "The name of the person's role in their organization" ;
+  acl:trustedApp @srs:TrustedAppShape *
+    // rdfs:comment  "A list of app origins that are trusted by this user" ;
+  cert:key @srs:RSAPublicKeyShape *
+    // rdfs:comment  "A list of RSA public keys that are associated with private keys the user holds." ;
+  ldp:inbox IRI
+    // rdfs:comment  "The user's LDP inbox to which apps can post notifications" ;
+  sp:preferencesFile IRI ?
+    // rdfs:comment  "The user's preferences" ;
+  sp:storage IRI *
+    // rdfs:comment  "The location of a Solid storage server related to this WebId" ;
+  solid:account IRI ?
+    // rdfs:comment  "The user's account" ;
+  solid:privateTypeIndex IRI *
+    // rdfs:comment  "A registry of all types used on the user's Pod (for private access only)" ;
+  solid:publicTypeIndex IRI *
+    // rdfs:comment  "A registry of all types used on the user's Pod (for public access)" ;
+  foaf:knows IRI *
+    // rdfs:comment  "A list of WebIds for all the people this user knows." ;
+}
+
+srs:AddressShape {
+  vcard:country-name xsd:string ?
+    // rdfs:comment  "The name of the user's country of residence" ;
+  vcard:locality xsd:string ?
+    // rdfs:comment  "The name of the user's locality (City, Town etc.) of residence" ;
+  vcard:postal-code xsd:string ?
+    // rdfs:comment  "The user's postal code" ;
+  vcard:region xsd:string ?
+    // rdfs:comment  "The name of the user's region (State, Province etc.) of residence" ;
+  vcard:street-address xsd:string ?
+    // rdfs:comment  "The user's street address" ;
+}
+
+srs:EmailShape EXTRA a {
+  a [
+    vcard:Dom
+    vcard:Home
+    vcard:ISDN
+    vcard:Internet
+    vcard:Intl
+    vcard:Label
+    vcard:Parcel
+    vcard:Postal
+    vcard:Pref
+    vcard:Work
+    vcard:X400
+  ] ?
+    // rdfs:comment  "The type of email." ;
+  vcard:value IRI
+    // rdfs:comment  "The value of an email as a mailto link (Example <mailto:jane@example.com>)" ;
+}
+
+srs:PhoneNumberShape EXTRA a {
+  a [
+    vcard:Dom
+    vcard:Home
+    vcard:ISDN
+    vcard:Internet
+    vcard:Intl
+    vcard:Label
+    vcard:Parcel
+    vcard:Postal
+    vcard:Pref
+    vcard:Work
+    vcard:X400
+  ] ?
+    // rdfs:comment  "They type of Phone Number" ;
+  vcard:value IRI
+    // rdfs:comment  "The value of a phone number as a tel link (Example <tel:555-555-5555>)" ;
+}
+
+srs:TrustedAppShape {
+  acl:mode [acl:Append acl:Control acl:Read acl:Write] +
+    // rdfs:comment  "The level of access provided to this origin" ;
+  acl:origin IRI
+    // rdfs:comment "The app origin the user trusts"
+}
+
+srs:RSAPublicKeyShape {
+  cert:modulus xsd:string
+    // rdfs:comment  "RSA Modulus" ;
+  cert:exponent xsd:integer
+    // rdfs:comment  "RSA Exponent" ;
+}
+  `,
   sampleTurtle: `
     @base <https://jackson.solidcommunity.net/profile/card#me> .
     @prefix : <#>.
@@ -968,6 +366,22 @@ export const profile: TestData = {
   `,
   baseNode: "https://jackson.solidcommunity.net/profile/card#me",
   successfulContext: {
+    type: { "@id": "@type", "@container": "@set" },
+    Person: "http://schema.org/Person",
+    Person2: "http://xmlns.com/foaf/0.1/Person",
+    fn: {
+      "@id": "http://www.w3.org/2006/vcard/ns#fn",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    name: {
+      "@id": "http://xmlns.com/foaf/0.1/name",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    hasAddress: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasAddress",
+      "@type": "@id",
+      "@container": "@set",
+    },
     countryName: {
       "@id": "http://www.w3.org/2006/vcard/ns#country-name",
       "@type": "http://www.w3.org/2001/XMLSchema#string",
@@ -988,8 +402,9 @@ export const profile: TestData = {
       "@id": "http://www.w3.org/2006/vcard/ns#street-address",
       "@type": "http://www.w3.org/2001/XMLSchema#string",
     },
-    type: {
-      "@id": "@type",
+    hasEmail: {
+      "@id": "http://www.w3.org/2006/vcard/ns#hasEmail",
+      "@type": "@id",
       "@container": "@set",
     },
     Dom: "http://www.w3.org/2006/vcard/ns#Dom",
@@ -1005,38 +420,12 @@ export const profile: TestData = {
     X400: "http://www.w3.org/2006/vcard/ns#X400",
     value: {
       "@id": "http://www.w3.org/2006/vcard/ns#value",
-      "@container": "@set",
-    },
-    modulus: {
-      "@id": "http://www.w3.org/ns/auth/cert#modulus",
-      "@type": "http://www.w3.org/2001/XMLSchema#string",
-    },
-    exponent: {
-      "@id": "http://www.w3.org/ns/auth/cert#exponent",
-      "@type": "http://www.w3.org/2001/XMLSchema#integer",
-    },
-    Person: "http://schema.org/Person",
-    Person2: "http://xmlns.com/foaf/0.1/Person",
-    fn: {
-      "@id": "http://www.w3.org/2006/vcard/ns#fn",
-      "@type": "http://www.w3.org/2001/XMLSchema#string",
-    },
-    name: {
-      "@id": "http://xmlns.com/foaf/0.1/name",
-      "@type": "http://www.w3.org/2001/XMLSchema#string",
-    },
-    hasAddress: {
-      "@id": "http://www.w3.org/2006/vcard/ns#hasAddress",
-      "@type": "@id",
-      "@container": "@set",
-    },
-    hasEmail: {
-      "@id": "http://www.w3.org/2006/vcard/ns#hasEmail",
       "@type": "@id",
       "@container": "@set",
     },
     hasPhoto: {
       "@id": "http://www.w3.org/2006/vcard/ns#hasPhoto",
+      "@type": "@id",
     },
     img: {
       "@id": "http://xmlns.com/foaf/0.1/img",
@@ -1064,49 +453,55 @@ export const profile: TestData = {
       "@type": "@id",
       "@container": "@set",
     },
-    mode: {
-      "@id": "http://www.w3.org/ns/auth/acl#mode",
-      "@container": "@set",
-    },
+    mode: { "@id": "http://www.w3.org/ns/auth/acl#mode", "@container": "@set" },
     Append: "http://www.w3.org/ns/auth/acl#Append",
     Control: "http://www.w3.org/ns/auth/acl#Control",
     Read: "http://www.w3.org/ns/auth/acl#Read",
     Write: "http://www.w3.org/ns/auth/acl#Write",
-    origin: {
-      "@id": "http://www.w3.org/ns/auth/acl#origin",
-    },
+    origin: { "@id": "http://www.w3.org/ns/auth/acl#origin", "@type": "@id" },
     key: {
       "@id": "http://www.w3.org/ns/auth/cert#key",
       "@type": "@id",
       "@container": "@set",
     },
-    inbox: {
-      "@id": "http://www.w3.org/ns/ldp#inbox",
+    modulus: {
+      "@id": "http://www.w3.org/ns/auth/cert#modulus",
+      "@type": "http://www.w3.org/2001/XMLSchema#string",
     },
+    exponent: {
+      "@id": "http://www.w3.org/ns/auth/cert#exponent",
+      "@type": "http://www.w3.org/2001/XMLSchema#integer",
+    },
+    inbox: { "@id": "http://www.w3.org/ns/ldp#inbox", "@type": "@id" },
     preferencesFile: {
       "@id": "http://www.w3.org/ns/pim/space#preferencesFile",
+      "@type": "@id",
     },
     storage: {
       "@id": "http://www.w3.org/ns/pim/space#storage",
+      "@type": "@id",
       "@container": "@set",
     },
     account: {
       "@id": "http://www.w3.org/ns/solid/terms#account",
+      "@type": "@id",
     },
     privateTypeIndex: {
       "@id": "http://www.w3.org/ns/solid/terms#privateTypeIndex",
+      "@type": "@id",
       "@container": "@set",
     },
     publicTypeIndex: {
       "@id": "http://www.w3.org/ns/solid/terms#publicTypeIndex",
+      "@type": "@id",
       "@container": "@set",
     },
     knows: {
       "@id": "http://xmlns.com/foaf/0.1/knows",
-      "@container": "@set",
       "@type": "@id",
+      "@container": "@set",
     },
   },
   successfulTypings:
-    'import {ContextDefinition} from "jsonld"\n\nexport interface AddressShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The name of the user\'s country of residence\r\n     */\r\n    countryName?: string;\r\n    /**\r\n     * The name of the user\'s locality (City, Town etc.) of residence\r\n     */\r\n    locality?: string;\r\n    /**\r\n     * The user\'s postal code\r\n     */\r\n    postalCode?: string;\r\n    /**\r\n     * The name of the user\'s region (State, Province etc.) of residence\r\n     */\r\n    region?: string;\r\n    /**\r\n     * The user\'s street address\r\n     */\r\n    streetAddress?: string;\r\n}\r\n\r\nexport interface EmailShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The type of email.\r\n     */\r\n    type?: {\r\n        "@id": "Dom";\r\n    } | {\r\n        "@id": "Home";\r\n    } | {\r\n        "@id": "ISDN";\r\n    } | {\r\n        "@id": "Internet";\r\n    } | {\r\n        "@id": "Intl";\r\n    } | {\r\n        "@id": "Label";\r\n    } | {\r\n        "@id": "Parcel";\r\n    } | {\r\n        "@id": "Postal";\r\n    } | {\r\n        "@id": "Pref";\r\n    } | {\r\n        "@id": "Work";\r\n    } | {\r\n        "@id": "X400";\r\n    };\r\n    /**\r\n     * The value of an email as a mailto link (Example <mailto:jane@example.com>)\r\n     */\r\n    value: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\nexport interface PhoneNumberShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * They type of Phone Number\r\n     */\r\n    type?: {\r\n        "@id": "Dom";\r\n    } | {\r\n        "@id": "Home";\r\n    } | {\r\n        "@id": "ISDN";\r\n    } | {\r\n        "@id": "Internet";\r\n    } | {\r\n        "@id": "Intl";\r\n    } | {\r\n        "@id": "Label";\r\n    } | {\r\n        "@id": "Parcel";\r\n    } | {\r\n        "@id": "Postal";\r\n    } | {\r\n        "@id": "Pref";\r\n    } | {\r\n        "@id": "Work";\r\n    } | {\r\n        "@id": "X400";\r\n    };\r\n    /**\r\n     * The value of a phone number as a tel link (Example <tel:555-555-5555>)\r\n     */\r\n    value: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\nexport interface RSAPublicKeyShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * RSA Modulus\r\n     */\r\n    modulus: string;\r\n    /**\r\n     * RSA Exponent\r\n     */\r\n    exponent: number;\r\n}\r\n\r\nexport interface SolidProfileShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * Defines the node as a Person (from Schema.org) | Defines the node as a Person (from foaf)\r\n     */\r\n    type: ({\r\n        "@id": "Person";\r\n    } | {\r\n        "@id": "Person2";\r\n    })[];\r\n    /**\r\n     * The formatted name of a person. Example: John Smith\r\n     */\r\n    fn?: string;\r\n    /**\r\n     * An alternate way to define a person\'s name.\r\n     */\r\n    name?: string;\r\n    /**\r\n     * The person\'s street address.\r\n     */\r\n    hasAddress?: (AddressShape)[];\r\n    /**\r\n     * The person\'s email.\r\n     */\r\n    hasEmail?: (EmailShape)[];\r\n    /**\r\n     * A link to the person\'s photo\r\n     */\r\n    hasPhoto?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * Photo link but in string form\r\n     */\r\n    img?: string;\r\n    /**\r\n     * Person\'s telephone number\r\n     */\r\n    hasTelephone?: (PhoneNumberShape)[];\r\n    /**\r\n     * An alternative way to define a person\'s telephone number using a string\r\n     */\r\n    phone?: string;\r\n    /**\r\n     * The name of the organization with which the person is affiliated\r\n     */\r\n    organizationName?: string;\r\n    /**\r\n     * The name of the person\'s role in their organization\r\n     */\r\n    role?: string;\r\n    /**\r\n     * A list of app origins that are trusted by this user\r\n     */\r\n    trustedApp?: (TrustedAppShape)[];\r\n    /**\r\n     * A list of RSA public keys that are associated with private keys the user holds.\r\n     */\r\n    key?: (RSAPublicKeyShape)[];\r\n    /**\r\n     * The user\'s LDP inbox to which apps can post notifications\r\n     */\r\n    inbox: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * The user\'s preferences\r\n     */\r\n    preferencesFile?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * The location of a Solid storage server related to this WebId\r\n     */\r\n    storage?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * The user\'s account\r\n     */\r\n    account?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * A registry of all types used on the user\'s Pod (for private access only)\r\n     */\r\n    privateTypeIndex?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * A registry of all types used on the user\'s Pod (for public access)\r\n     */\r\n    publicTypeIndex?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * A list of WebIds for all the people this user knows.\r\n     */\r\n    knows?: (SolidProfileShape)[];\r\n}\r\n\r\nexport interface TrustedAppShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The level of access provided to this origin\r\n     */\r\n    mode: ({\r\n        "@id": "Append";\r\n    } | {\r\n        "@id": "Control";\r\n    } | {\r\n        "@id": "Read";\r\n    } | {\r\n        "@id": "Write";\r\n    })[];\r\n    /**\r\n     * The app origin the user trusts\r\n     */\r\n    origin: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\n',
+    'import {ContextDefinition} from "jsonld"\n\nexport interface SolidProfileShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * Defines the node as a Person (from Schema.org) | Defines the node as a Person (from foaf)\r\n     */\r\n    type: ({\r\n        "@id": "Person";\r\n    } | {\r\n        "@id": "Person2";\r\n    })[];\r\n    /**\r\n     * The formatted name of a person. Example: John Smith\r\n     */\r\n    fn?: string;\r\n    /**\r\n     * An alternate way to define a person\'s name.\r\n     */\r\n    name?: string;\r\n    /**\r\n     * The person\'s street address.\r\n     */\r\n    hasAddress?: (AddressShape)[];\r\n    /**\r\n     * The person\'s email.\r\n     */\r\n    hasEmail?: (EmailShape)[];\r\n    /**\r\n     * A link to the person\'s photo\r\n     */\r\n    hasPhoto?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * Photo link but in string form\r\n     */\r\n    img?: string;\r\n    /**\r\n     * Person\'s telephone number\r\n     */\r\n    hasTelephone?: (PhoneNumberShape)[];\r\n    /**\r\n     * An alternative way to define a person\'s telephone number using a string\r\n     */\r\n    phone?: string;\r\n    /**\r\n     * The name of the organization with which the person is affiliated\r\n     */\r\n    organizationName?: string;\r\n    /**\r\n     * The name of the person\'s role in their organization\r\n     */\r\n    role?: string;\r\n    /**\r\n     * A list of app origins that are trusted by this user\r\n     */\r\n    trustedApp?: (TrustedAppShape)[];\r\n    /**\r\n     * A list of RSA public keys that are associated with private keys the user holds.\r\n     */\r\n    key?: (RSAPublicKeyShape)[];\r\n    /**\r\n     * The user\'s LDP inbox to which apps can post notifications\r\n     */\r\n    inbox: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * The user\'s preferences\r\n     */\r\n    preferencesFile?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * The location of a Solid storage server related to this WebId\r\n     */\r\n    storage?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * The user\'s account\r\n     */\r\n    account?: {\r\n        "@id": string;\r\n    };\r\n    /**\r\n     * A registry of all types used on the user\'s Pod (for private access only)\r\n     */\r\n    privateTypeIndex?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * A registry of all types used on the user\'s Pod (for public access)\r\n     */\r\n    publicTypeIndex?: {\r\n        "@id": string;\r\n    }[];\r\n    /**\r\n     * A list of WebIds for all the people this user knows.\r\n     */\r\n    knows?: {\r\n        "@id": string;\r\n    }[];\r\n}\r\n\r\nexport interface AddressShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The name of the user\'s country of residence\r\n     */\r\n    countryName?: string;\r\n    /**\r\n     * The name of the user\'s locality (City, Town etc.) of residence\r\n     */\r\n    locality?: string;\r\n    /**\r\n     * The user\'s postal code\r\n     */\r\n    postalCode?: string;\r\n    /**\r\n     * The name of the user\'s region (State, Province etc.) of residence\r\n     */\r\n    region?: string;\r\n    /**\r\n     * The user\'s street address\r\n     */\r\n    streetAddress?: string;\r\n}\r\n\r\nexport interface EmailShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The type of email.\r\n     */\r\n    type?: {\r\n        "@id": "Dom";\r\n    } | {\r\n        "@id": "Home";\r\n    } | {\r\n        "@id": "ISDN";\r\n    } | {\r\n        "@id": "Internet";\r\n    } | {\r\n        "@id": "Intl";\r\n    } | {\r\n        "@id": "Label";\r\n    } | {\r\n        "@id": "Parcel";\r\n    } | {\r\n        "@id": "Postal";\r\n    } | {\r\n        "@id": "Pref";\r\n    } | {\r\n        "@id": "Work";\r\n    } | {\r\n        "@id": "X400";\r\n    };\r\n    /**\r\n     * The value of an email as a mailto link (Example <mailto:jane@example.com>)\r\n     */\r\n    value: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\nexport interface PhoneNumberShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * They type of Phone Number\r\n     */\r\n    type?: {\r\n        "@id": "Dom";\r\n    } | {\r\n        "@id": "Home";\r\n    } | {\r\n        "@id": "ISDN";\r\n    } | {\r\n        "@id": "Internet";\r\n    } | {\r\n        "@id": "Intl";\r\n    } | {\r\n        "@id": "Label";\r\n    } | {\r\n        "@id": "Parcel";\r\n    } | {\r\n        "@id": "Postal";\r\n    } | {\r\n        "@id": "Pref";\r\n    } | {\r\n        "@id": "Work";\r\n    } | {\r\n        "@id": "X400";\r\n    };\r\n    /**\r\n     * The value of a phone number as a tel link (Example <tel:555-555-5555>)\r\n     */\r\n    value: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\nexport interface TrustedAppShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * The level of access provided to this origin\r\n     */\r\n    mode: ({\r\n        "@id": "Append";\r\n    } | {\r\n        "@id": "Control";\r\n    } | {\r\n        "@id": "Read";\r\n    } | {\r\n        "@id": "Write";\r\n    })[];\r\n    /**\r\n     * The app origin the user trusts\r\n     */\r\n    origin: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\nexport interface RSAPublicKeyShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    /**\r\n     * RSA Modulus\r\n     */\r\n    modulus: string;\r\n    /**\r\n     * RSA Exponent\r\n     */\r\n    exponent: number;\r\n}\r\n\r\n',
 };

@@ -28,6 +28,9 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
     Schema: {
       return: dom.TopLevelDeclaration[];
     };
+    ShapeDecl: {
+      return: dom.InterfaceDeclaration;
+    };
     Shape: {
       return: dom.InterfaceDeclaration;
     };
@@ -61,13 +64,28 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
       return interfaces;
     },
   },
+  ShapeDecl: {
+    transformer: async (
+      shapeDecl,
+      getTransformedChildren
+    ): Promise<dom.InterfaceDeclaration> => {
+      const shapeName = nameFromObject(shapeDecl) || "Shape";
+      const { shapeExpr } = await getTransformedChildren();
+      if ((shapeExpr as dom.InterfaceDeclaration).kind === "interface") {
+        const shapeInterface = shapeExpr as dom.InterfaceDeclaration;
+        shapeInterface.name = shapeName;
+        return shapeInterface;
+      } else {
+        // TODO: Handle other items
+        throw new Error(
+          "Cannot handle ShapeOr, ShapeAnd, ShapeNot, ShapeExternal, or NodeConstraint"
+        );
+      }
+    },
+  },
   Shape: {
     transformer: async (shape, getTransformedChildren, setReturnPointer) => {
-      const shapeName = nameFromObject(shape) || "Shape";
-      const newInterface: ShapeInterfaceDeclaration = {
-        ...dom.create.interface(shapeName),
-        shapeId: shape.id,
-      };
+      const newInterface: ShapeInterfaceDeclaration = dom.create.interface("");
       setReturnPointer(newInterface);
       const transformedChildren = await getTransformedChildren();
       // Add @id and @context
@@ -95,6 +113,24 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
         newInterface.members.push(
           ...(transformedChildren.expression as dom.ObjectType).members
         );
+      } else if (
+        (transformedChildren.expression as dom.PropertyDeclaration).kind ===
+        "property"
+      ) {
+        newInterface.members.push(
+          transformedChildren.expression as dom.PropertyDeclaration
+        );
+      }
+      // Use EXTENDS
+      if (transformedChildren.extends) {
+        newInterface.baseTypes = [];
+        transformedChildren.extends.forEach((extendsItem) => {
+          if ((extendsItem as dom.InterfaceDeclaration).kind === "interface") {
+            newInterface.baseTypes?.push(
+              extendsItem as dom.InterfaceDeclaration
+            );
+          }
+        });
       }
       return newInterface;
     },
@@ -198,7 +234,7 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
       const isArray =
         tripleConstraint.max !== undefined && tripleConstraint.max !== 1;
       const isOptional = tripleConstraint.min === 0;
-      let type: dom.Type = dom.type.undefined;
+      let type: dom.Type = dom.type.any;
       if (transformedChildren.valueExpr) {
         type = transformedChildren.valueExpr as dom.Type;
       }

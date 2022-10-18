@@ -3,19 +3,22 @@ import { TestData } from "./testData";
 /**
  * Circular
  */
-export const circular: TestData = {
-  name: "circular",
+export const extendsSimple: TestData = {
+  name: "extends simple",
   shexc: `
-  PREFIX example: <http://example.com/> 
+  PREFIX ex: <https://example.com/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
-  example:ParentShape {
-    a [ example:Parent ]? ;
-    example:hasChild @example:ChildShape ;
+  ex:EntityShape {
+    ex:entityId .
   }
 
-  example:ChildShape {
-    a [ example:Child ]? ;
-    example:hasParent @example:ParentShape ;
+  ex:PersonShape EXTENDS @ex:EntityShape {
+    foaf:name .
+  }
+
+  ex:EmployeeShape EXTENDS @ex:PersonShape {
+    ex:employeeNumber .
   }
   `,
   sampleTurtle: `
@@ -31,11 +34,9 @@ export const circular: TestData = {
   `,
   baseNode: "http://example.com/SampleParent",
   successfulContext: {
-    type: { "@id": "@type", "@container": "@set" },
-    Parent: "http://example.com/Parent",
-    hasChild: { "@id": "http://example.com/hasChild", "@type": "@id" },
-    Child: "http://example.com/Child",
-    hasParent: { "@id": "http://example.com/hasParent", "@type": "@id" },
+    entityId: "https://example.com/entityId",
+    name: "http://xmlns.com/foaf/0.1/name",
+    employeeNumber: "https://example.com/employeeNumber",
   },
   successfulTypings:
     'import {ContextDefinition} from "jsonld"\n\nexport interface ParentShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: {\r\n        "@id": "Parent";\r\n    };\r\n    hasChild: ChildShape;\r\n}\r\n\r\nexport interface ChildShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    type?: {\r\n        "@id": "Child";\r\n    };\r\n    hasParent: ParentShape;\r\n}\r\n\r\n',

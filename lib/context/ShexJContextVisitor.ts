@@ -23,6 +23,16 @@ export const ShexJNameVisitor =
                 isContainer,
                 tripleConstraint.annotations
               );
+            } else if (
+              tripleConstraint.valueExpr.nodeKind &&
+              tripleConstraint.valueExpr.nodeKind !== "literal"
+            ) {
+              context.addPredicate(
+                tripleConstraint.predicate,
+                { "@type": "@id" },
+                isContainer,
+                tripleConstraint.annotations
+              );
             } else {
               context.addPredicate(
                 tripleConstraint.predicate,

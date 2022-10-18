@@ -5,57 +5,18 @@ import { TestData } from "./testData";
  */
 export const simple: TestData = {
   name: "simple",
-  shexj: {
-    type: "Schema",
-    shapes: [
-      {
-        type: "Shape",
-        id: "http://shex.io/webapps/shex.js/doc/EmployeeShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/givenName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-              min: 1,
-              max: -1,
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/familyName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string",
-              },
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/phone",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-              min: 0,
-              max: -1,
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/0.1/mbox",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-              },
-            },
-          ],
-        },
-      },
-    ],
-    "@context": "http://www.w3.org/ns/shex.jsonld",
-  },
+  shexc: `
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  PREFIX example: <https://example.com/>
+
+  example:EmployeeShape {                # An <EmployeeShape> has:
+    foaf:givenName  xsd:string+,   # at least one givenName.
+    foaf:familyName xsd:string,    # one familyName.
+    foaf:phone      IRI*,          # any number of phone numbers.
+    foaf:mbox       IRI            # one FOAF mbox.
+  }
+  `,
   sampleTurtle: `
     @prefix foaf: <http://xmlns.com/foaf/0.1/> .
     @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -79,11 +40,10 @@ export const simple: TestData = {
     },
     phone: {
       "@id": "http://xmlns.com/foaf/0.1/phone",
+      "@type": "@id",
       "@container": "@set",
     },
-    mbox: {
-      "@id": "http://xmlns.com/foaf/0.1/mbox",
-    },
+    mbox: { "@id": "http://xmlns.com/foaf/0.1/mbox", "@type": "@id" },
   },
   successfulTypings:
     'import {ContextDefinition} from "jsonld"\n\nexport interface EmployeeShape {\n    "@id"?: string;\r\n    "@context"?: ContextDefinition;\r\n    givenName: string[];\r\n    familyName: string;\r\n    phone?: {\r\n        "@id": string;\r\n    }[];\r\n    mbox: {\r\n        "@id": string;\r\n    };\r\n}\r\n\r\n',

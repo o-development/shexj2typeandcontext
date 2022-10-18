@@ -1,14 +1,15 @@
 import { ContextDefinition } from "jsonld";
-import { Schema } from "shexj";
 import { activityPub } from "./activityPub";
 import { circular } from "./circular";
 import { profile } from "./profile";
 import { reducedProfile } from "./reducedProfile";
 import { simple } from "./simple";
+// import { extendsSimple } from "./extendsSimple";
+import { oldExtends } from "./oldExtends";
 
 export interface TestData {
   name: string;
-  shexj: Schema;
+  shexc: string;
   sampleTurtle: string;
   baseNode: string;
   successfulContext: ContextDefinition;
@@ -21,4 +22,6 @@ export const testData: TestData[] = [
   profile,
   reducedProfile,
   activityPub,
+  // extendsSimple,
+  oldExtends,
 ];
