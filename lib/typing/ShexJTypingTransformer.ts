@@ -72,8 +72,9 @@ export const ShexJTypingTransformer = ShexJTraverser.createTransformer<
       const shapeName = nameFromObject(shapeDecl) || "Shape";
       const { shapeExpr } = await getTransformedChildren();
       if ((shapeExpr as dom.InterfaceDeclaration).kind === "interface") {
-        const shapeInterface = shapeExpr as dom.InterfaceDeclaration;
+        const shapeInterface = shapeExpr as ShapeInterfaceDeclaration;
         shapeInterface.name = shapeName;
+        shapeInterface.shapeId = shapeDecl.id;
         return shapeInterface;
       } else {
         // TODO: Handle other items
