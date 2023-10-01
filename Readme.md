@@ -1,3 +1,5 @@
+> :warning: **This repository is archived**: It's contents have been moved to a new [monorepo](https://github.com/o-development/ldo/).
+
 # ShexJ 2 Type and Context
 
 Turn ShexJ into typescript typings and JSON-LD context.
